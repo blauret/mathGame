@@ -20,6 +20,7 @@ export class AppComponent {
  
   public timeLeft$: Observable<timeComponents>;
   title = 'math_game';
+  partOptions : any = {};
 
   started : boolean = false;
   startDate : Date = new Date();
@@ -37,6 +38,7 @@ export class AppComponent {
 
 
   constructor( private fb: FormBuilder) {
+    
 
     this.form = this.fb.group({
       result: ['']
