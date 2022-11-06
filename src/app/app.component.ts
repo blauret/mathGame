@@ -317,7 +317,7 @@ export class AppComponent {
   started : boolean = false;
   finished : boolean = false;
   startDate : Date = new Date();
-  timeLeft: number  = 3;
+  timeLeft: number  = 300;
   good = 0;
   bad = 0;
   
