@@ -335,6 +335,9 @@ export class AppComponent {
       result: ['']
     });
 
+    this.form.disable();
+
+
     this.randomizeNumbers();
     this.timeLeft$ = interval(1000).pipe(
       map(x => this.calcDateDiff()),
@@ -350,6 +353,7 @@ export class AppComponent {
 
   setStarted () {
     console.log("started");
+    this.form.enable();
     this.startDate = new Date();
     this.startDate.setSeconds(this.startDate.getSeconds() + this.timeLeft);
     this.started = true;
@@ -386,8 +390,9 @@ export class AppComponent {
     const timeDifference = dDay - Date.now();
 
     if (timeDifference <= 0) {
-      return { secondsToDday :  0, minutesToDday:0, hoursToDday: 0, daysToDday: 0};
       this.finished = true;
+      this.form.disable();
+      return { secondsToDday :  0, minutesToDday:0, hoursToDday: 0, daysToDday: 0};
     }
   
     const daysToDday = Math.floor(

@@ -1,7 +1,7 @@
 <nav>
   <div class="nav-wrapper">
     <a href="#" class="brand-logo">Rahpael's Math Game</a>
-    <a href="#!" class="right-align" (click)="setRestart()"
+    <a href="#!" *ngIf="finished" class="right-align" (click)="setRestart()"
       ><i class="material-icons">replay</i></a
     >
   </div>
