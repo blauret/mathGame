@@ -5,6 +5,10 @@ import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms
 import { interval, Observable } from "rxjs";
 import { map, shareReplay } from "rxjs/operators";
 
+import { MoveDirection, ClickMode, HoverMode, OutMode, Engine } from "tsparticles-engine";
+import { loadFull } from "tsparticles";
+
+
 interface timeComponents {
   secondsToDday: number;
   minutesToDday: number;
@@ -24,7 +28,7 @@ export class AppComponent {
   public timeLeft$: Observable<timeComponents>;
   title = 'math_game';
 
-
+  id = "tsparticles";
   partOptions : any = 
   {
     background: {
@@ -313,6 +317,19 @@ export class AppComponent {
       }
     }
   };
+
+  // particlesLoaded(container: Container): void {
+  //   console.log(container);
+  // } 
+
+  async particlesInit(engine: Engine): Promise<void> {
+    console.log(engine);
+
+    // Starting from 1.19.0 you can add custom presets or shape here, using the current tsParticles instance (main)
+    // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
+    // starting from v2 you can add only the features you need reducing the bundle size
+    await loadFull(engine);
+  }
 
   started : boolean = false;
   finished : boolean = false;
