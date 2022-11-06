@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 
 
@@ -17,9 +17,14 @@ interface timeComponents {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
- 
+  // @ViewChild("myinput") myinputField: any;
+  @ViewChild("myinput", { read: ElementRef, static: false })
+  myinputField!: ElementRef; // map server
+
   public timeLeft$: Observable<timeComponents>;
   title = 'math_game';
+
+
   partOptions : any = 
   {
     background: {
@@ -310,13 +315,12 @@ export class AppComponent {
   };
 
   started : boolean = false;
+  finished : boolean = false;
   startDate : Date = new Date();
-  timeLeft: number  = 300;
+  timeLeft: number  = 3;
   good = 0;
   bad = 0;
-  time: number = 300;
-  interval : any;
-
+  
   numberA : number = 0;
   numberB : number = 0;
 
@@ -338,11 +342,19 @@ export class AppComponent {
     );
   }
  
+  setRestart () {
+    this.started = false;
+    this.finished = false;
+
+  }
+
   setStarted () {
     console.log("started");
     this.startDate = new Date();
     this.startDate.setSeconds(this.startDate.getSeconds() + this.timeLeft);
     this.started = true;
+    this.myinputField.nativeElement.focus();
+    
   }
  
   randomizeNumbers(){
@@ -372,6 +384,11 @@ export class AppComponent {
     const secondsInAMinute = 60;
   
     const timeDifference = dDay - Date.now();
+
+    if (timeDifference <= 0) {
+      return { secondsToDday :  0, minutesToDday:0, hoursToDday: 0, daysToDday: 0};
+      this.finished = true;
+    }
   
     const daysToDday = Math.floor(
       timeDifference /
