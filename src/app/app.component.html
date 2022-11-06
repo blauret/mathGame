@@ -23,7 +23,7 @@
 
         <div class="timer" *ngIf="(timeLeft$ | async) as t">
           <span id="minutes"> {{t.minutesToDday}} </span>:
-          <span id="seconds"> {{t.secondsToDday}} </span>
+          <span id="seconds"> {{t.secondsToDday | number: '2.0-0'}} </span>
         </div></h2>
         
 
