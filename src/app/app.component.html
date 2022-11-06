@@ -6,6 +6,7 @@
 <div *ngIf="started === false; else running">
   <div class="row">
     <div class="col s12">
+      <Particles id="tsparticles" [options]="partOptions"></Particles>
       <div class="center-align">
         <img src="assets/play.png" alt="play" (click)="setStarted()" />
       </div>
@@ -58,4 +59,3 @@
     </div>
   </div>
 </ng-template>
-<Particles id="tsparticles" [options]="{{partOptions}}"></Particles>
