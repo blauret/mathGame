@@ -363,8 +363,12 @@ export class AppComponent {
   }
  
   setRestart () {
+    console.log("Restart");
     this.started = false;
     this.finished = false;
+    this.good = 0;
+    this.bad = 0;
+
 
   }
 
@@ -406,7 +410,7 @@ export class AppComponent {
   
     const timeDifference = dDay - Date.now();
 
-    if (timeDifference <= 0) {
+    if (timeDifference <= 0 && this.started) {
       this.finished = true;
       this.form.disable();
       return { secondsToDday :  0, minutesToDday:0, hoursToDday: 0, daysToDday: 0};
