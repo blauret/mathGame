@@ -330,10 +330,11 @@ export class AppComponent {
     // starting from v2 you can add only the features you need reducing the bundle size
     await loadFull(engine);
   }
-
+  
   started : boolean = false;
   finished : boolean = false;
   startDate : Date = new Date();
+  finishedDate : Date = new Date();
   timeLeft: number  = 300;
   winNumber: number  = 100;
   good = 0;
@@ -348,7 +349,8 @@ export class AppComponent {
 
   constructor( private fb: UntypedFormBuilder) {
     
-
+    this.finishedDate = new Date();
+    
     this.form = this.fb.group({
       result: ['']
     });
@@ -404,6 +406,7 @@ export class AppComponent {
       if (this.good >= this.winNumber) {
         this.finished = true;
         this.form.disable();
+        this.finishedDate =new Date();
       }
     } else {
       this.bad +=1;
@@ -420,11 +423,17 @@ export class AppComponent {
     const hoursInADay = 24;
     const minutesInAnHour = 60;
     const secondsInAMinute = 60;
-  
-    const timeDifference = dDay - Date.now();
+    
+    let timeDifference;
+    if (this.finished) {
+      timeDifference = dDay - this.finishedDate.valueOf();      
+    } else {
+      timeDifference = dDay - Date.now();
+    }
 
     if (timeDifference <= 0 && this.started) {
       this.finished = true;
+      this.finishedDate =new Date();
       this.form.disable();
       return { secondsToDday :  0, minutesToDday:0, hoursToDday: 0, daysToDday: 0};
     }
