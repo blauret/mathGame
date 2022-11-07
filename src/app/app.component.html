@@ -63,7 +63,7 @@
 </div>
 
 <div *ngIf="finished === true">
-  <div *ngIf="good >=100; else failed">
+  <div *ngIf="good >=winNumber; else failed">
     <h1 class="center-align">Congratulations!!!</h1>
     <ng-particles 
         [id]="id"

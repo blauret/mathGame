@@ -334,7 +334,8 @@ export class AppComponent {
   started : boolean = false;
   finished : boolean = false;
   startDate : Date = new Date();
-  timeLeft: number  = 300;
+  timeLeft: number  = 30;
+  winNumber: number  = 100;
   good = 0;
   bad = 0;
   
@@ -356,7 +357,7 @@ export class AppComponent {
 
 
     this.randomizeNumbers();
-    this.timeLeft$ = interval(1000).pipe(
+    this.timeLeft$ = interval(200).pipe(
       map(x => this.calcDateDiff()),
       shareReplay(1)
     );
@@ -391,6 +392,10 @@ export class AppComponent {
     const val = this.form.value;
     if (this.numberA * this.numberB == val.result) {
       this.good +=1;
+      if (this.good >= this.winNumber) {
+        this.finished = true;
+        this.form.disable();
+      }
     } else {
       this.bad +=1;
     }
@@ -399,7 +404,6 @@ export class AppComponent {
 
   }
   calcDateDiff(endDay: Date = new Date(2022, 0, 1)): timeComponents {
-
 
     const dDay = this.startDate.valueOf();
   
