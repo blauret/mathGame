@@ -334,7 +334,7 @@ export class AppComponent {
   started : boolean = false;
   finished : boolean = false;
   startDate : Date = new Date();
-  timeLeft: number  = 30;
+  timeLeft: number  = 300;
   winNumber: number  = 100;
   good = 0;
   bad = 0;
@@ -384,8 +384,17 @@ export class AppComponent {
   }
  
   randomizeNumbers(){
-    this.numberA = Math.floor(Math.random() * 9) + 1;
-    this.numberB = Math.floor(Math.random() * 10) + 1;
+    let temp =this.numberA;
+    while (temp == this.numberA) {
+      temp = Math.floor(Math.random() * 8) + 2;
+    }
+    this.numberA = temp;
+
+    temp = this.numberB;
+    while (temp == this.numberB) {
+      temp = Math.floor(Math.random() * 8) + 2;
+    }
+    this.numberB = temp;
   }
   
   onKeyDownEvent(event: any){
